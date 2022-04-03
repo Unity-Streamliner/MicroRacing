@@ -467,6 +467,9 @@
      <Reference Include="ReportGeneratorMerged">
      <HintPath>/Users/tigermei/Documents/Unity/MicroRacing/Library/PackageCache/com.unity.testtools.codecoverage@1.0.1/lib/ReportGenerator/ReportGeneratorMerged.dll</HintPath>
      </Reference>
+     <Reference Include="clipper_library">
+     <HintPath>/Users/tigermei/Documents/Unity/MicroRacing/Library/PackageCache/com.unity.cinemachine@2.8.4/Runtime/ThirdParty/clipper_library.dll</HintPath>
+     </Reference>
      <Reference Include="nunit.framework">
      <HintPath>/Users/tigermei/Documents/Unity/MicroRacing/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>
      </Reference>
