@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Car : MonoBehaviour
 {
@@ -9,7 +11,8 @@ public class Car : MonoBehaviour
     [SerializeField] private float turnSpeed = 200f;
 
     private int _steerValue;
-    
+    private string _tag = "Obstacle";
+
     void Update()
     {
         IncreaseSpeed();
@@ -25,5 +28,18 @@ public class Car : MonoBehaviour
     private void IncreaseSpeed()
     {
         speed += speedGain * Time.deltaTime;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag(_tag))
+        {
+            SceneManager.LoadScene(0);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        
     }
 }
