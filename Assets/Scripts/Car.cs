@@ -34,7 +34,7 @@ public class Car : MonoBehaviour
     {
         if (other.CompareTag(_tag))
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(0);
         }
     }
 
