@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] private TMP_Text highScoreText;
     [SerializeField] private TMP_Text energyText;
+    [SerializeField] private Button playButton;
     [SerializeField] private AndroidNotificationHandler androidNotificationHandler;
     [SerializeField] private IOSNotificationHandler iosNotificationHandler;
     [SerializeField] private int maxEnergy;
@@ -20,6 +22,16 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
+        OnApplicationFocus(true);
+    }
+
+    private void OnApplicationFocus(bool hasFocus)
+    {
+        if (!hasFocus)
+        {
+            return; 
+        }
+        CancelInvoke(nameof(EnergyRecharged));
         int score = PlayerPrefs.GetInt(ScoreSystem.HighScoreKey, 0);
         highScoreText.text = $"High Score: {score}";
 
@@ -35,11 +47,22 @@ public class MainMenu : MonoBehaviour
             DateTime energyReady = DateTime.Parse(energyReadyString);
             if (DateTime.Now > energyReady)
             {
-                _energy = maxEnergy;
-                PlayerPrefs.SetInt(EnergyKey, _energy);
+                EnergyRecharged();
+            }
+            else
+            {
+                playButton.interactable = false;
+                Invoke(nameof(EnergyRecharged), (energyReady - DateTime.Now).Seconds);
             }
         }
+        energyText.text = $"Play ({_energy})";
+    }
 
+    private void EnergyRecharged()
+    {
+        playButton.interactable = true;
+        _energy = maxEnergy;
+        PlayerPrefs.SetInt(EnergyKey, _energy);
         energyText.text = $"Play ({_energy})";
     }
 
